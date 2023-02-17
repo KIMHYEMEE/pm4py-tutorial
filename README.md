@@ -44,3 +44,50 @@
 
 ## 이벤트로그 현황 확인
 - `get_start_activities` (`get_end_activities`): 이벤트로그 내 각 trace의 시작(끝)에 발생하는 activity를 빈도수와 함께 표현
+
+## 이벤트로그 필터
+
+- **filter_start_activities(log, activities, retrain=True)**: 
+  ```
+  filtered = pm4py.filter_start_activities(event_log, {'register request'})
+  ```
+  ```
+  filtered = pm4py.filter_start_activities(event_log, {'register request TYPO!'})
+  ```
+- **filter_end_activities(log, activities, retrain=True)**: 
+  ```
+  filtered = pm4py.filter_end_activities(event_log, 'pay compensation')
+  ```
+- **filter_event_attribute_values(log, attribute_key, values, level='case', retain=True)**: 
+  ```
+  filtered = pm4py.filter_event_attribute_values(log, 'org:resource',{'Pete','Mike'})
+  ```
+  ```
+  filtered = pm4py.filter_event_attribute_values(log, 'org:resource',{'Pete','Mike'}, level='event')
+  ```
+- **filter_trace_attribute_values(log, attribute_key, values, retain=True)**: 
+  ```
+  filtered = pm4py.filter_trace_attribute_values(log, 'org:resource',{'3','4'})
+  ```
+  ```
+  filtered = pm4py.filter_trace_attribute_values(log, 'org:resource',{'3','4'}, retain=False)
+  ```
+- **filter_variants(log, variants, retrain=True)**: 
+  ``` 
+  filtered = pm4py.filter_variants(log,[['register request','check ticket','examine casually','decide','pay compensation']])
+  ```
+  ``` 
+  filtered = pm4py.filter_variants(log,[['register request','check ticket','examine casually','decide','reject request']])
+  ```
+- **filter_directly_follows_relation(log, relations, retrain=True)**: 
+  ```
+  filtered = pm4py.filter_directly_follows_relation(log, [('check ticket','examin casually')])
+  ```
+- **filter_eventually_follows_relation(log, relations, retrain=True)**: 
+  ```
+  filtered = pm4py.filter_eventually_follows_relation(log,[('examine casually','reject request')])
+  ```
+- **filter_time_range(log, dt1, dt2, mode='events')**: 
+  ```
+  filtered = pm4py.filter_time_range(evet_log, dt.datetime(2010,12,30), dt.datetime(2010,12,31), mode='events')
+  ```
